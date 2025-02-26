@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>육각 렌치 볼트 규격 계산기</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            width: 650px;
+            backdrop-filter: blur(10px);
+        }
+        h2 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 22px;
+        }
+        input {
+            width: 80%;
+            padding: 12px;
+            font-size: 22px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px 35px;
+            font-size: 22px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e68900;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        function searchBolt() {
+            let diameterInput = document.getElementById("boltDiameter").value.trim();
+            let result = document.getElementById("result");
+            
+            if (!diameterInput.match(/^\d+$/)) {
+                result.innerHTML = "<p style='color: #ffcc00;'>숫자만 입력해주세요. (예: 6 → M6)</p>";
+                return;
+            }
+            
+            let diameter = "M" + diameterInput;
+            let boltData = {
+                "M3": {pitch: "0.5 mm", wrench: "2.5 mm", headDiameter: "5.5 mm", headHeight: "3 mm"},
+                "M4": {pitch: "0.7 mm", wrench: "3 mm", headDiameter: "7 mm", headHeight: "4 mm"},
+                "M5": {pitch: "0.8 mm", wrench: "4 mm", headDiameter: "8.5 mm", headHeight: "5 mm"},
+                "M6": {pitch: "1.0 mm", wrench: "5 mm", headDiameter: "10 mm", headHeight: "6 mm"},
+                "M8": {pitch: "1.25 mm", wrench: "6 mm", headDiameter: "13 mm", headHeight: "8 mm"},
+                "M10": {pitch: "1.5 mm", wrench: "8 mm", headDiameter: "16 mm", headHeight: "10 mm"},
+                "M12": {pitch: "1.75 mm", wrench: "10 mm", headDiameter: "18 mm", headHeight: "12 mm"},
+                "M14": {pitch: "2.0 mm", wrench: "12 mm", headDiameter: "21 mm", headHeight: "14 mm"},
+                "M16": {pitch: "2.0 mm", wrench: "14 mm", headDiameter: "24 mm", headHeight: "16 mm"},
+                "M20": {pitch: "2.5 mm", wrench: "17 mm", headDiameter: "30 mm", headHeight: "20 mm"},
+                "M24": {pitch: "3.0 mm", wrench: "19 mm", headDiameter: "36 mm", headHeight: "24 mm"},
+                "M30": {pitch: "3.5 mm", wrench: "22 mm", headDiameter: "45 mm", headHeight: "30 mm"},
+                "M36": {pitch: "4.0 mm", wrench: "27 mm", headDiameter: "54 mm", headHeight: "36 mm"},
+                "M42": {pitch: "4.5 mm", wrench: "32 mm", headDiameter: "63 mm", headHeight: "42 mm"},
+                "M48": {pitch: "5.0 mm", wrench: "36 mm", headDiameter: "72 mm", headHeight: "48 mm"},
+                "M50": {pitch: "5.0 mm", wrench: "38 mm", headDiameter: "75 mm", headHeight: "50 mm"}
+            };
+            
+            if (boltData[diameter]) {
+                result.innerHTML = `
+                    <h3>${diameter} 볼트 규격</h3>
+                    <p><strong>나사 피치:</strong> ${boltData[diameter].pitch}</p>
+                    <p><strong>육각렌치 크기:</strong> ${boltData[diameter].wrench}</p>
+                    <p><strong>머리 지름:</strong> ${boltData[diameter].headDiameter}</p>
+                    <p><strong>머리 높이:</strong> ${boltData[diameter].headHeight}</p>
+                    <p style="color: #ffcc00;"><strong>5초 후에 추천 상품 페이지로 이동합니다...</strong></p>
+                `;
+                setTimeout(function() {
+                    window.location.href = "https://smartstore.naver.com/allgagu/products/8585167950";
+                }, 3000);
+            } else {
+                result.innerHTML = "<p style='color: red;'>해당 직경의 볼트 정보를 찾을 수 없습니다. 3~50까지만 지원됩니다.</p>";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>육각 렌치 볼트 규격 계산기</h2>
+        <label for="boltDiameter">볼트 직경 입력 (예: 6 → M6):</label><br>
+        <input type="text" id="boltDiameter" placeholder="예: 6"><br>
+        <button onclick="searchBolt()">검색</button>
+        <div id="result"></div>
+    </div>
+</body>
+</html>
